@@ -55,27 +55,33 @@ class Asteroid {
       return false;
     }
   }
-/*  float radius () {
-    switch (size) {
-    case 4:
-      return 10;
-    case 5:
-      return 12.7;
-    case 6:
-      return 16;
-    case 7:
-      return 20.2;
-    case 8:
-      return 25.4;
-    }
-  }
-  */
+  /*  float radius () {
+   switch (size) {
+   case 4:
+   return 10;
+   case 5:
+   return 12.7;
+   case 6:
+   return 16;
+   case 7:
+   return 20.2;
+   case 8:
+   return 25.4;
+   }
+   }
+   */
   float radius () {
-    10*(1.27^(n-4))
-  //used https://processing.org/reference/PVector_dist_.html to help
-  float distance () {
-    d = 
+    float r = 10*(1.27^(n-4));
+    return r;
   }
-  
+
+  //used https://processing.org/reference/PVector_dist_.html to help
+  float distance (PVector acent, PVector bcent) {
+    float d = acent.dist(bcent);
+    return d;
+  }
+}
+
+void render () {
   
 }

@@ -1,6 +1,6 @@
 import java.util.HashSet;
 
-// Detect collitions between Breakers and Asteroids.  Remove the
+// Detect collisions between Breakers and Asteroids.  Remove the
 // Asteroids involved in collisions, and replace them with smalller
 // Asteroids.  Remove Breakers involved in collisions.
 void handleCollisions() {
@@ -90,3 +90,16 @@ void draw() {
   
   handleCollisions();
 }
+
+boolean colliding (Asteroid Ast, Breaker Break) {
+  float r = radius;
+  float d = distance(Ast.Center, Break.Center);
+  if (d <= r) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+  
+  
