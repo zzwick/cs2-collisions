@@ -18,7 +18,7 @@ class Asteroid {
     center = new PVector(random(width), random(height));
     v = new PVector(100, 0);
     v.rotate(random(TWO_PI));
-  } 
+  }
 
   // Update the position of the Asteroid according to its velocity.
   // The argument dt is the elapsed time in milliseconds since the
@@ -45,8 +45,8 @@ class Asteroid {
     endShape(CLOSE);
   }
   int childShape () {
-    size = size-1;
-    return size;
+    int s = size-1;
+    return s;
   }
   boolean canSplit () {
     if (size > 4) {
@@ -71,7 +71,7 @@ class Asteroid {
    }
    */
   float radius () {
-    float r = 10*(1.27^(n-4));
+    float r = 10*(pow(1.27,(size-4)));
     return r;
   }
 
@@ -80,8 +80,11 @@ class Asteroid {
     float d = acent.dist(bcent);
     return d;
   }
-}
 
-void render () {
-  
+  void render () {
+    float r = radius();
+    float x = center.x;
+    float y = center.y;
+    polygon(x, y, r, size);
+  }
 }

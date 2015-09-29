@@ -92,8 +92,10 @@ void draw() {
 }
 
 boolean colliding (Asteroid Ast, Breaker Break) {
-  float r = radius;
-  float d = distance(Ast.Center, Break.Center);
+  float r = Ast.radius();
+  PVector v1 = new PVector(Ast.center.x, Ast.center.y);
+  PVector v2 = new PVector(Break.center.x, Break.center.y);
+  float d = v1.dist(v2);
   if (d <= r) {
     return true;
   }
