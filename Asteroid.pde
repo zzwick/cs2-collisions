@@ -87,4 +87,25 @@ class Asteroid {
     float y = center.y;
     polygon(x, y, r, size);
   }
+  
+  Pair childVelocities () {
+      PVector v1 = new PVector (v.x * 1.1,v.y * 1.1);
+      PVector v2 = new PVector (v.x * 1.1, v.y * 1.1);
+      v1.rotate(30);
+      v2.rotate(-30);
+      Pair A = new Pair(v1, v2);
+      return A;
+  }
+  
+  Pair children () {
+    PVector centerA = center.copy();
+    int s = this.childShape();
+    Pair 1 = new pair;
+    Pair 2 = new pair;
+    Pair1 = Pair.a;
+    Pair2 = Pair.b;
+    Asteroid A = new Asteroid(s, center, v1);
+    Asteroid B = new Asteroid(s, center.copy(), v2);
+  }
+  
 }
