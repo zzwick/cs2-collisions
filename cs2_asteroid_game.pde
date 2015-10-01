@@ -38,8 +38,8 @@ void handleCollisions() {
 }
 
 // The number of (random) elements to create.
-int initialAsteroids = 10;
-int initialBreakers = 30;
+int initialAsteroids = 5;
+int initialBreakers = 0;
 
 ArrayList<Asteroid> asteroids = new ArrayList();
 ArrayList<Breaker> breakers = new ArrayList();
@@ -103,5 +103,16 @@ boolean colliding (Asteroid Ast, Breaker Break) {
     return false;
   }
 }
+
+//reduce the amount of initial asteroids to a reasonable number, 5?
+//get rid of breakers
+//have a spaceship triangle, final float size, number of sides 3
+//have the spaceship have a velocity and be able to move around, PVector Vecloity x,y, PVetor Position x and y
+//method to adjust velocity of the spaceship
+//have spaceship slow down slightly so it will eventually stop
+//have space ship fire breakers
+//check for collisons between asteroid and spaceship
+//have a number of lives, if at 0 lives, restart, otherwise just put ship in middle of screen
+
   
   
