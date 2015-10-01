@@ -98,14 +98,14 @@ class Asteroid {
   }
   
   Pair children () {
-    PVector centerA = center.copy();
     int s = this.childShape();
-    Pair 1 = new pair;
-    Pair 2 = new pair;
-    Pair1 = Pair.a;
-    Pair2 = Pair.b;
+    Pair<PVector, PVector> Pair1 = this.childVelocities();
+    PVector v1 = Pair1.a;
+    PVector v2 = Pair1.b;
     Asteroid A = new Asteroid(s, center, v1);
     Asteroid B = new Asteroid(s, center.copy(), v2);
+    Pair<Asteroid, Asteroid> BreakPair = new Pair(A,B);
+    return BreakPair;
   }
   
 }
