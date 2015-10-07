@@ -31,6 +31,7 @@ void handleCollisions() {
        }
   }
   
+  
   // Remove the Breakers which collided
   for (Breaker b : usedBreakers) {
     breakers.remove(b);
