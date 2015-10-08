@@ -1,25 +1,29 @@
 class Spaceship {
   PVector center;  // position of center, in screen coordinates
-  final PVector v;  // velocity, per second, in screen coordinates
   float angle;
-  float velocity;
+  PVector velocity;
 
   Spaceship(PVector c, PVector v_, float a) {
     center = c;
-    v = v_;
+    velocity = v_;
     angle = a;
   }
 
   Spaceship () {
     center = new PVector ((width/2), (height/2));
-    v = new PVector(0, 0);
+    velocity = new PVector(0, 0);
+    angle = -60;
   }
 
+  ArrayList<Breaker> breakers = new ArrayList();
+
   void spaceRender () {
+    fill(255,0,0);
     beginShape ();
-    vertex((center.x+(2*(cos(angle+60)))), (center.y-(2*(sin(angle+60)))));
-    vertex((center.x-(2*(cos(angle+60)))), (center.y+(2*(sin(angle+60)))));
-    vertex((center.x+(2*(cos(angle)))), (center.y-(2*(sin(angle)))));
+    vertex((center.x+(20*(cos(angle+60)))), (center.y-(20*(sin(angle+60)))));
+    vertex((center.x-(20*(cos(angle+60)))), (center.y+(20*(sin(angle+60)))));
+    vertex((center.x+(20*(cos(angle)))), (center.y-(20*(sin(angle)))));
+    endShape(CLOSE);
   }
 
   void move () {
@@ -29,21 +33,33 @@ class Spaceship {
 
   void arrows () {
     if (keyPressed) {
-      if (key == UP) {
-        velocity = velocity + width/100;
-      } else if (key == RIGHT) {
+      if (keyCode == UP) {
+        velocity = velocity + 2;
+      } else if (keyCode == RIGHT) {
         angle = angle + 5;
-      } else if (key == LEFT) {
+      } else if (keyCode == LEFT) {
         angle = angle - 5;
       }
     }
-  }
-  
-  void shoot () {
-    if (keypressed) {
-     if (key == DOWN) {
-       Breaker bullet = new Breaker(bcent,angle);
-       breakers.add(bullet);
-     }
+    if (angle == 360) {
+      angle = 0;
     }
+    println(velocity);
+    println(angle);
+  }
+
+  void shoot () {
+    if (keyPressed) {
+      if (keyCode == DOWN) {
+        Breaker bullet = new Breaker(center, angle);
+        breakers.add(bullet);
+      }
+    }
+  }
+
+  void draw () {
+    for (Breaker b : breakers) {
+      b.render();
+    }
+  }
 }

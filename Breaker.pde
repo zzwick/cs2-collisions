@@ -9,19 +9,21 @@ class Breaker {
 
   // Create a Breaker with a random position, uniformly distributed
   // over the area of the window.
-  Breaker() {
-    center = new PVector(center.x,center.y);
+/*  Breaker() {
+    center = new PVector();
   }
-  
+*/
+
+  void render() {
+    fill(255);
+    stroke(0);
+    PVector c = center;
+    ellipse(c.x, c.y, 5, 5);
+    c.x = c.x + cos(angle)*(height/100);
+    c.y = c.y + sin(angle)*(height/100);
+  }
   float radius() {
     return 5;
   }
   
-  void render() {
-    fill(255);
-    stroke(0);
-    ellipse(center.x, center.y, 5, 5);
-    center.x = center.x + cos(angle)*(height/100);
-    center.y = center.y + sin(angle)*(height/100);
-  }
 }

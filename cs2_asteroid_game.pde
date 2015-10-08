@@ -44,7 +44,7 @@ int initialBreakers = 0;
 
 ArrayList<Asteroid> asteroids = new ArrayList();
 ArrayList<Breaker> breakers = new ArrayList();
-
+Spaceship spaceship;
 // Store time (ms) of last update.
 float t, last_t, dt;
 Pair<Asteroid, Asteroid> children;
@@ -59,14 +59,17 @@ void setup() {
   }
 
   // Randomly place Breakers
-  i = 0;
+/*  i = 0;
   while(i < initialBreakers) {
     breakers.add(new Breaker());
     i++;
   }
-  
+  */
   size(500,500);
+  spaceship = new Spaceship();
 }
+
+
 
 void draw() {
   clear();
@@ -77,10 +80,15 @@ void draw() {
   }
 
   // Render all the Breakers
-  for(Breaker b : breakers) {
+/*  for(Breaker b : breakers) {
     b.render();
   }
-
+*/
+  spaceship.spaceRender();
+  spaceship.move();
+  spaceship.arrows();
+  spaceship.shoot();
+  spaceship.move();
   // Update the positions of the Asteroids
   t = millis();
   dt = last_t - t;
@@ -104,6 +112,9 @@ boolean colliding (Asteroid Ast, Breaker Break) {
     return false;
   }
 }
+
+
+
 
 //reduce the amount of initial asteroids to a reasonable number, 5?
 //get rid of breakers

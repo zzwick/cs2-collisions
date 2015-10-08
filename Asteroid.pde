@@ -36,6 +36,7 @@ class Asteroid {
   // distance r from the center to each vertex.
   private void polygon(float x, float y, float radius, int npoints) {
     float angle = TWO_PI / npoints;
+    fill(255);
     beginShape();
     for (float a = 0; a < TWO_PI; a += angle) {
       float sx = x + cos(a) * radius;
