@@ -89,6 +89,9 @@ void draw() {
   spaceship.arrows();
   spaceship.shoot();
   spaceship.move();
+  spaceship.UpdateBreakArray();
+  spaceship.slowDown();
+  spaceship.ifoff();
   // Update the positions of the Asteroids
   t = millis();
   dt = last_t - t;

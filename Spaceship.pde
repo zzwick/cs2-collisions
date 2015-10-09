@@ -12,36 +12,41 @@ class Spaceship {
   Spaceship () {
     center = new PVector ((width/2), (height/2));
     velocity = new PVector(0, 0);
-    angle = -60;
+    angle = 0;
   }
 
   ArrayList<Breaker> breakers = new ArrayList();
 
   void spaceRender () {
-    fill(255,0,0);
+    fill(255, 0, 0);
     beginShape ();
-    vertex((center.x+(20*(cos(angle+60)))), (center.y-(20*(sin(angle+60)))));
-    vertex((center.x-(20*(cos(angle+60)))), (center.y+(20*(sin(angle+60)))));
-    vertex((center.x+(20*(cos(angle)))), (center.y-(20*(sin(angle)))));
+    vertex(center.x+(10*cos(angle+(PI/3))), center.y-(10*sin(angle+(PI/3))));
+    vertex(center.x-(10*cos(angle+(PI/3))), center.y+(10*sin(angle+(PI/3))));
+    vertex(center.x+(10*cos(angle)), center.y-(10*sin(angle)));
     endShape(CLOSE);
   }
 
   void move () {
-    center.x = center.x + cos(angle)*velocity;
-    center.y = center.y + cos(angle)*velocity;
+    /*   center.x = center.x + cos(angle)*velocity;
+     center.y = center.y + cos(angle)*velocity;
+     */
+    center = center.add(velocity);
   }
 
   void arrows () {
     if (keyPressed) {
       if (keyCode == UP) {
-        velocity = velocity + 2;
+        velocity.set((velocity.x + cos(angle)*.5), (velocity.y + cos(angle)*.5));
+        println(velocity);
       } else if (keyCode == RIGHT) {
-        angle = angle + 5;
+        angle = angle + .2;
       } else if (keyCode == LEFT) {
-        angle = angle - 5;
+        angle = angle - .2;
       }
     }
-    if (angle == 360) {
+    if (angle == 2*PI) {
+      angle = 0;
+    } else if (angle == -2*PI) {
       angle = 0;
     }
     println(velocity);
@@ -51,15 +56,32 @@ class Spaceship {
   void shoot () {
     if (keyPressed) {
       if (keyCode == DOWN) {
-        Breaker bullet = new Breaker(center, angle);
+        Breaker bullet = new Breaker(center.copy(), angle);
         breakers.add(bullet);
       }
     }
   }
 
-  void draw () {
+  void UpdateBreakArray () {
     for (Breaker b : breakers) {
       b.render();
+    }
+  }
+  void slowDown () {
+    velocity.set(velocity.x*.9, velocity.y*.9);
+  }
+  void ifoff () {
+    if (center.x <0) {
+      center.x = width;
+    }
+    if (center.x > width) {
+      center.x = 0;
+    }
+    if (center.y >height) {
+      center.y = 0;
+    }
+    if (center.y < 0) {
+      center.y = height;
     }
   }
 }

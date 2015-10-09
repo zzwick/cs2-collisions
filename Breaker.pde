@@ -15,7 +15,7 @@ class Breaker {
 */
 
   void render() {
-    fill(255);
+    fill(255,0,0);
     stroke(0);
     PVector c = center;
     ellipse(c.x, c.y, 5, 5);
