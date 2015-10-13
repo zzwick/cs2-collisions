@@ -20,9 +20,9 @@ class Spaceship {
   void spaceRender () {
     fill(255, 0, 0);
     beginShape ();
-    vertex(center.x+(10*cos(angle+(PI/3))), center.y-(10*sin(angle+(PI/3))));
-    vertex(center.x-(10*cos(angle+(PI/3))), center.y+(10*sin(angle+(PI/3))));
-    vertex(center.x+(10*cos(angle)), center.y-(10*sin(angle)));
+    vertex(center.x+(10*cos(angle-(2*PI/3))), center.y+(10*sin(angle-(2*PI/3))));
+    vertex(center.x+(10*cos(angle+(2*PI/3))), center.y+(10*sin(angle+(2*PI/3))));
+    vertex(center.x+(20*cos(angle)), center.y+(20*sin(angle)));
     endShape(CLOSE);
   }
 
@@ -36,8 +36,8 @@ class Spaceship {
   void arrows () {
     if (keyPressed) {
       if (keyCode == UP) {
-        velocity.set((velocity.x + cos(angle)*.5), (velocity.y + cos(angle)*.5));
-        println(velocity);
+        velocity.set((velocity.x + cos(angle)*.5), (velocity.y + sin(angle)*.5));
+        println();
       } else if (keyCode == RIGHT) {
         angle = angle + .2;
       } else if (keyCode == LEFT) {

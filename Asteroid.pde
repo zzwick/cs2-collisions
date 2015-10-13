@@ -108,5 +108,18 @@ class Asteroid {
     Pair<Asteroid, Asteroid> BreakPair = new Pair(A,B);
     return BreakPair;
   }
-  
+  void outside () {
+    if (center.x <0) {
+      center.x = width;
+    }
+    if (center.x > width) {
+      center.x = 0;
+    }
+    if (center.y >height) {
+      center.y = 0;
+    }
+    if (center.y < 0) {
+      center.y = height;
+    }
+  }
 }

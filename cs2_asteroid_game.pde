@@ -12,7 +12,7 @@ void handleCollisions() {
 
   // Keep track of which objects collided.  Don't delete them inside
   // the loop, because that messes up the Iterator.
-  for (Breaker b : breakers) {
+  for (Breaker b : spaceship.breakers) {
     for (Asteroid a : asteroids) {
       if (colliding(a, b)) {
         collisions.add(a);
@@ -34,7 +34,7 @@ void handleCollisions() {
   
   // Remove the Breakers which collided
   for (Breaker b : usedBreakers) {
-    breakers.remove(b);
+    spaceship.breakers.remove(b);
   }
 }
 
@@ -43,7 +43,7 @@ int initialAsteroids = 5;
 int initialBreakers = 0;
 
 ArrayList<Asteroid> asteroids = new ArrayList();
-ArrayList<Breaker> breakers = new ArrayList();
+//ArrayList<Breaker> breakers = new ArrayList();
 Spaceship spaceship;
 // Store time (ms) of last update.
 float t, last_t, dt;
@@ -77,6 +77,7 @@ void draw() {
   // Render all the Asteroids
   for(Asteroid a : asteroids) {
     a.render();
+    a.outside();
   }
 
   // Render all the Breakers
@@ -109,6 +110,7 @@ boolean colliding (Asteroid Ast, Breaker Break) {
   PVector v2 = new PVector(Break.center.x, Break.center.y);
   float d = v1.dist(v2);
   if (d <= r) {
+    println("yes");
     return true;
   }
   else {
