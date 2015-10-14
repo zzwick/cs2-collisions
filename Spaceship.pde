@@ -17,6 +17,7 @@ class Spaceship {
 
   ArrayList<Breaker> breakers = new ArrayList();
 
+//make the spaceship, triangle, takes the float angle of the spaceship and the pvector center
   void spaceRender () {
     fill(255, 0, 0);
     beginShape ();
@@ -37,7 +38,6 @@ class Spaceship {
     if (keyPressed) {
       if (keyCode == UP) {
         velocity.set((velocity.x + cos(angle)*.5), (velocity.y + sin(angle)*.5));
-        println();
       } else if (keyCode == RIGHT) {
         angle = angle + .2;
       } else if (keyCode == LEFT) {
@@ -49,8 +49,6 @@ class Spaceship {
     } else if (angle == -2*PI) {
       angle = 0;
     }
-    println(velocity);
-    println(angle);
   }
 
   void shoot () {

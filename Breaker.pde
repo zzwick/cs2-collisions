@@ -6,14 +6,10 @@ class Breaker {
     center = c;
     angle = a;
   }
+  
 
-  // Create a Breaker with a random position, uniformly distributed
-  // over the area of the window.
-/*  Breaker() {
-    center = new PVector();
-  }
-*/
-
+//make the breaker at center of where the spaceship is
+//circle with radius 5, takes pvector center
   void render() {
     fill(255,0,0);
     stroke(0);

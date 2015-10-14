@@ -4,7 +4,7 @@ import java.util.HashSet;
 // Asteroids involved in collisions, and replace them with smalller
 // Asteroids.  Remove Breakers involved in collisions.
 void handleCollisions() {
-     // Asteroids which collided this timestep
+  // Asteroids which collided this timestep
   HashSet<Asteroid> collisions = new HashSet();
 
   // Breakers which collided this timestep.
@@ -24,14 +24,14 @@ void handleCollisions() {
   // Split or remove the Asteroids which collided
   for (Asteroid a : collisions) {
     asteroids.remove(a);
-       if (a.canSplit()) {
-         children = a.children();
-         asteroids.add(children.a);
-         asteroids.add(children.b);
-       }
+    if (a.canSplit()) {
+      children = a.children();
+      asteroids.add(children.a);
+      asteroids.add(children.b);
+    }
   }
-  
-  
+
+
   // Remove the Breakers which collided
   for (Breaker b : usedBreakers) {
     spaceship.breakers.remove(b);
@@ -40,7 +40,6 @@ void handleCollisions() {
 
 // The number of (random) elements to create.
 int initialAsteroids = 5;
-int initialBreakers = 0;
 
 ArrayList<Asteroid> asteroids = new ArrayList();
 //ArrayList<Breaker> breakers = new ArrayList();
@@ -49,24 +48,21 @@ Spaceship spaceship;
 float t, last_t, dt;
 Pair<Asteroid, Asteroid> children;
 
-void setup() {
-
-  // Make random Asteroids
+void reDraw () {
   int i = 0;
-  while(i < initialAsteroids) {
+  asteroids = new ArrayList();
+  while (i < initialAsteroids) {
     asteroids.add(new Asteroid());
     i++;
   }
-
-  // Randomly place Breakers
-/*  i = 0;
-  while(i < initialBreakers) {
-    breakers.add(new Breaker());
-    i++;
-  }
-  */
-  size(500,500);
   spaceship = new Spaceship();
+}
+
+void setup() {
+
+  // Make random Asteroids
+  reDraw();
+  size(500, 500);
 }
 
 
@@ -75,16 +71,16 @@ void draw() {
   clear();
 
   // Render all the Asteroids
-  for(Asteroid a : asteroids) {
+  for (Asteroid a : asteroids) {
     a.render();
     a.outside();
   }
 
   // Render all the Breakers
-/*  for(Breaker b : breakers) {
-    b.render();
-  }
-*/
+  /*  for(Breaker b : breakers) {
+   b.render();
+   }
+   */
   spaceship.spaceRender();
   spaceship.move();
   spaceship.arrows();
@@ -97,11 +93,13 @@ void draw() {
   t = millis();
   dt = last_t - t;
   last_t = t;
-  for(Asteroid a : asteroids) {
+  for (Asteroid a : asteroids) {
     a.update(dt);
   }
-  
+
   handleCollisions();
+  //handleCrash();
+  reDraw();
 }
 
 boolean colliding (Asteroid Ast, Breaker Break) {
@@ -110,15 +108,37 @@ boolean colliding (Asteroid Ast, Breaker Break) {
   PVector v2 = new PVector(Break.center.x, Break.center.y);
   float d = v1.dist(v2);
   if (d <= r) {
-    println("yes");
     return true;
-  }
-  else {
+  } else {
     return false;
   }
 }
 
+boolean crash (Asteroid Ast, Spaceship spaceship) {
+  float r = Ast.radius();
+  PVector v1 = new PVector(Ast.center.x, Ast.center.y);
+  PVector v2 = new PVector(spaceship.center.x, spaceship.center.y);
+  float d = v1.dist(v2);
+  if (d <= r) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
+void handleCrash() {
+  boolean crashed = false;
+  while (crashed==false) {
+    for (Asteroid a : asteroids) {
+      if (crash(a, spaceship)) {
+        crashed=true;
+      }
+    }
+  }
+  //if (crashed==true) {
+  //  reDraw();
+  //}
+}
 
 
 //reduce the amount of initial asteroids to a reasonable number, 5?
@@ -130,6 +150,3 @@ boolean colliding (Asteroid Ast, Breaker Break) {
 //have space ship fire breakers
 //check for collisons between asteroid and spaceship
 //have a number of lives, if at 0 lives, restart, otherwise just put ship in middle of screen
-
-  
-  
