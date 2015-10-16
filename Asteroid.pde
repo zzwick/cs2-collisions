@@ -36,7 +36,8 @@ class Asteroid {
   // distance r from the center to each vertex.
   private void polygon(float x, float y, float radius, int npoints) {
     float angle = TWO_PI / npoints;
-    fill(255);
+    fill(200,50,50);
+    stroke(0);
     beginShape();
     for (float a = 0; a < TWO_PI; a += angle) {
       float sx = x + cos(a) * radius;
@@ -45,10 +46,13 @@ class Asteroid {
     }
     endShape(CLOSE);
   }
+  //makes the size side smaller, called after it collides with a breaker
   int childShape () {
     int s = size-1;
     return s;
   }
+  //tells whether the asteroid is large enough size to split
+  //if the asteroid has 4 or less sides then it returns false
   boolean canSplit () {
     if (size > 4) {
       return true;
@@ -56,6 +60,7 @@ class Asteroid {
       return false;
     }
   }
+  //this is just extra code, before I made an equation to estimate the size of the asteroid
   /*  float radius () {
    switch (size) {
    case 4:
@@ -71,24 +76,31 @@ class Asteroid {
    }
    }
    */
+  //returns a float for the radius of the asteroid
   float radius () {
     float r = 10*(pow(1.27,(size-4)));
     return r;
   }
 
   //used https://processing.org/reference/PVector_dist_.html to help
+  //returns a float, the distance between the center of the breaker and the center of the asteroid
   float distance (PVector acent, PVector bcent) {
     float d = acent.dist(bcent);
     return d;
   }
 
+//renders the asteroids, calls the polygon fuction using the center for that asteroid
+///and calls the radius function for the size of the radius
   void render () {
     float r = radius();
     float x = center.x;
     float y = center.y;
     polygon(x, y, r, size);
   }
-  
+  //makes two pvectors, one for each of the new asteroids created after the collision
+  //increases the velocities of the resulting asteroids made after collision be 1.1 x the initial velocity
+  //rotates one of the asteroid's velocities forward 30 degrees and the other backwards 30 degrees
+  //makes those into a new pair, then returns that pair
   Pair childVelocities () {
       PVector v1 = new PVector (v.x * 1.1,v.y * 1.1);
       PVector v2 = new PVector (v.x * 1.1, v.y * 1.1);
@@ -97,7 +109,12 @@ class Asteroid {
       Pair A = new Pair(v1, v2);
       return A;
   }
-  
+  //calls the childshape function to get the size of the resulting asteroids makes that an int s
+  //calls child velocities and takes that resulting pair into pair 1
+  //makes each of the pvector components of the pair into pvectors
+  //makes the 2 new resulting asteroids from the pvectors for velocity imput, and at the center where the asteroids were when they broke
+  //makes those two asteroids into a new pair
+  //returns that pair of 2 asteroids
   Pair children () {
     int s = this.childShape();
     Pair<PVector, PVector> Pair1 = this.childVelocities();
@@ -108,6 +125,7 @@ class Asteroid {
     Pair<Asteroid, Asteroid> BreakPair = new Pair(A,B);
     return BreakPair;
   }
+  //if the asteroids are outside the screen then it changes to the other side of the screen
   void outside () {
     if (center.x <0) {
       center.x = width;

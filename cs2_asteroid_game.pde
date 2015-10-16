@@ -89,6 +89,7 @@ void draw() {
   spaceship.UpdateBreakArray();
   spaceship.slowDown();
   spaceship.ifoff();
+  handleCrash();
   // Update the positions of the Asteroids
   t = millis();
   dt = last_t - t;
@@ -99,7 +100,6 @@ void draw() {
 
   handleCollisions();
   //handleCrash();
-  reDraw();
 }
 
 boolean colliding (Asteroid Ast, Breaker Break) {
@@ -128,16 +128,15 @@ boolean crash (Asteroid Ast, Spaceship spaceship) {
 
 void handleCrash() {
   boolean crashed = false;
-  while (crashed==false) {
-    for (Asteroid a : asteroids) {
-      if (crash(a, spaceship)) {
-        crashed=true;
-      }
-    }
+  
+   for (Asteroid a : asteroids) {
+     if (crash(a, spaceship)) {
+       crashed=true;
+     }
+   }
+  if (crashed==true) {
+    reDraw();
   }
-  //if (crashed==true) {
-  //  reDraw();
-  //}
 }
 
 
@@ -150,3 +149,5 @@ void handleCrash() {
 //have space ship fire breakers
 //check for collisons between asteroid and spaceship
 //have a number of lives, if at 0 lives, restart, otherwise just put ship in middle of screen
+//was unable to have the game win, if you win you will just be sitting there with an empty screen
+//the breakers start from center of the spaceship so sometimes asteroids that should hit it will just hit breaker at center and will not crash
