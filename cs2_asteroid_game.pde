@@ -39,7 +39,7 @@ void handleCollisions() {
 }
 
 // The number of (random) elements to create.
-int initialAsteroids = 5;
+int initialAsteroids = 4;
 
 ArrayList<Asteroid> asteroids = new ArrayList();
 //ArrayList<Breaker> breakers = new ArrayList();
@@ -47,15 +47,29 @@ Spaceship spaceship;
 // Store time (ms) of last update.
 float t, last_t, dt;
 Pair<Asteroid, Asteroid> children;
+boolean won;
 
+//draw the program, reset it to initial
 void reDraw () {
   int i = 0;
   asteroids = new ArrayList();
   while (i < initialAsteroids) {
     asteroids.add(new Asteroid());
     i++;
+    spaceship = new Spaceship();
+    if (Won == true) {
+      Won = false;
+    }
   }
-  spaceship = new Spaceship();
+}
+//sets up boolean for whether the game has just been won
+boolean Won = false;
+//if all the asteroids are gone. set boolean won to true then run reDraw
+void ifWon () {
+  if (asteroids.size() == 0) {
+    Won = true;
+    reDraw();
+  }
 }
 
 void setup() {
@@ -81,6 +95,7 @@ void draw() {
    b.render();
    }
    */
+  ifWon();
   spaceship.spaceRender();
   spaceship.move();
   spaceship.arrows();
@@ -128,12 +143,12 @@ boolean crash (Asteroid Ast, Spaceship spaceship) {
 
 void handleCrash() {
   boolean crashed = false;
-  
-   for (Asteroid a : asteroids) {
-     if (crash(a, spaceship)) {
-       crashed=true;
-     }
-   }
+
+  for (Asteroid a : asteroids) {
+    if (crash(a, spaceship)) {
+      crashed=true;
+    }
+  }
   if (crashed==true) {
     reDraw();
   }

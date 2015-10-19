@@ -39,7 +39,7 @@ class Spaceship {
   void arrows () {
     if (keyPressed) {
       if (keyCode == UP) {
-        velocity.set((velocity.x + cos(angle)*.5), (velocity.y + sin(angle)*.5));
+        velocity.set((velocity.x + cos(angle)*.3), (velocity.y + sin(angle)*.3));
       } else if (keyCode == RIGHT) {
         angle = angle + .2;
       } else if (keyCode == LEFT) {
