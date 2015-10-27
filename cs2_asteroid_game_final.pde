@@ -1,7 +1,7 @@
 import java.util.HashSet;
 
 // Detect collisions between Breakers and Asteroids.  Remove the
-// Asteroids involved in collisions, and replace them with smalller
+// Asteroids involved in collisioAstns, and replace them with smalller
 // Asteroids.  Remove Breakers involved in collisions.
 void handleCollisions() {
   // Asteroids which collided this timestep
@@ -39,7 +39,7 @@ void handleCollisions() {
 }
 
 // The number of (random) elements to create.
-int initialAsteroids = 4;
+int initialAsteroids = 2;
 
 ArrayList<Asteroid> asteroids = new ArrayList();
 //ArrayList<Breaker> breakers = new ArrayList();
@@ -58,6 +58,7 @@ void reDraw () {
     i++;
     spaceship = new Spaceship();
     if (Won == true) {
+      initialAsteroids = initialAsteroids+1;
       Won = false;
     }
   }
@@ -90,11 +91,6 @@ void draw() {
     a.outside();
   }
 
-  // Render all the Breakers
-  /*  for(Breaker b : breakers) {
-   b.render();
-   }
-   */
   ifWon();
   spaceship.spaceRender();
   spaceship.move();
@@ -117,6 +113,8 @@ void draw() {
   //handleCrash();
 }
 
+//boolean, check if a given asteroid is coliding with a given breaker if it is return true
+//if it's within a radius of the asteroid
 boolean colliding (Asteroid Ast, Breaker Break) {
   float r = Ast.radius();
   PVector v1 = new PVector(Ast.center.x, Ast.center.y);
@@ -129,6 +127,8 @@ boolean colliding (Asteroid Ast, Breaker Break) {
   }
 }
 
+//boolean for it a given asteroid is colliding with the spaceship
+//if the spaceship's center is within one asteroid radius of the asteroid's center
 boolean crash (Asteroid Ast, Spaceship spaceship) {
   float r = Ast.radius();
   PVector v1 = new PVector(Ast.center.x, Ast.center.y);
@@ -141,12 +141,17 @@ boolean crash (Asteroid Ast, Spaceship spaceship) {
   }
 }
 
+//resets the variable crashed to false, sets the boolean crash to false so it won't loop
+//goes through all the asteroids and if it's crashing with the spaceship it returns true
+//resets in initial asteroids to the initial value, restarting the game level
+//if crashing, then it redraws the game
 void handleCrash() {
   boolean crashed = false;
 
   for (Asteroid a : asteroids) {
     if (crash(a, spaceship)) {
       crashed=true;
+      initialAsteroids = 2;
     }
   }
   if (crashed==true) {

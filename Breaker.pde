@@ -15,8 +15,8 @@ class Breaker {
     stroke(0);
     PVector c = center;
     ellipse(c.x, c.y, 5, 5);
-    c.x = c.x + cos(angle)*(height/100);
-    c.y = c.y + sin(angle)*(height/100);
+    c.x = c.x + cos(angle)*(height/50);
+    c.y = c.y + sin(angle)*(height/50);
   }
   //returns a radius of 5 for the breakers
   float radius() {
